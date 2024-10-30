@@ -16,7 +16,7 @@
 
     function initializeData() {
         $.ajax({
-            url: `http://localhost:8354/api/report?start_date=2018-01-01&end_date=2018-12-31`,
+            url: `http://localhost:8354/api/report?start_date=2024-01-01&end_date=2024-12-31`,
             type: "GET",
             success: function (response) {
                 // Assume response is an array of objects { date: "2021-01-01", value: 10 }
@@ -24,7 +24,7 @@
                 const keuanganChartOptions = {
                     series: [
                         {
-                            name: 2018,
+                            name: 2024,
                             data: values,
                         },
                     ],

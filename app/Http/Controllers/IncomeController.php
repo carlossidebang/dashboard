@@ -34,7 +34,7 @@ class IncomeController extends AppBaseController
      */
     public function index(IncomeDataTable $incomeDataTable)
     {
-        $currentYear = now()->subYear(1)->format('Y');
+        $currentYear = now()->format('Y');
         $defaultResponse = new stdClass();
         $defaultResponse->year = $currentYear;
         $defaultResponse->nominal = 0;
@@ -63,12 +63,12 @@ class IncomeController extends AppBaseController
             ->groupBy(DB::raw('YEAR(income_date)'))
             ->get();
 
-
         return $incomeDataTable->render('incomes.index', [
+            'current_year' => $currentYear,
             'income_routine' => (sizeof($routineIncome) == 0) ?  $defaultResponse : $routineIncome[0],
             'income_year' => (sizeof($incomeOfYear) == 0) ?  $defaultResponse : $incomeOfYear[0],
             'income_kid' => (sizeof($incomeKid) == 0) ?  $defaultResponse : $incomeKid[0],
-            'income_youth' => (sizeof($incomeKid) == 0) ?  $defaultResponse : $incomeKid[0],
+            'income_youth' => (sizeof($incomeKid) == 0) ?  $defaultResponse : $incomeYouth[0],
         ]);
     }
 
@@ -194,5 +194,50 @@ class IncomeController extends AppBaseController
         $report = $this->incomeRepository->getIncomeMonthlyReport($request);
 
         return response()->json($report);
+    }
+
+    public function getIncomeYearByCategories(string $year, string $categories)
+    {
+        switch ($categories) {
+            case 'income_year':
+                $incomeOfYear = Income::select(DB::raw('YEAR(income_date) as year'), DB::raw('SUM(nominal) as nominal'))
+                    ->where(DB::raw('YEAR(income_date)'), $year)
+                    ->groupBy(DB::raw('YEAR(income_date)'))
+                    ->get();
+
+                return response()->json($incomeOfYear->count() > 0 ? $incomeOfYear[0]->toArray() : ['year' => $year, 'nominal' => 0]);
+            case 'income_youth':
+                $incomeYouth = Income::select(DB::raw('YEAR(income_date) as year'), DB::raw('SUM(nominal) as nominal'))
+                    ->where(DB::raw('YEAR(income_date)'), $year)
+                    ->where('service_category_id', 15)
+                    ->groupBy(DB::raw('YEAR(income_date)'))
+                    ->get();
+
+                return response()->json( $incomeYouth->count() > 0 ? $incomeYouth[0]->toArray() : ['year' => $year, 'nominal' => 0]);
+            case 'income_kid':
+                $incomeKid = Income::select(DB::raw('YEAR(income_date) as year'), DB::raw('SUM(nominal) as nominal'))
+                    ->where(DB::raw('YEAR(income_date)'), $year)
+                    ->where('service_category_id', 14)
+                    ->groupBy(DB::raw('YEAR(income_date)'))
+                    ->get();
+
+                return response()->json($incomeKid->count() > 0 ? $incomeKid[0]->toArray() : ['year' => $year, 'nominal' => 0]);
+            case 'income_routine':
+                $routineIncome = Income::select(DB::raw('YEAR(income_date) as year'), DB::raw('SUM(nominal) as nominal'))
+                    ->where(DB::raw('YEAR(income_date)'), $year)
+                    ->where(function (Builder $query) {
+                        $query->where('service_category_id', 9)
+                            ->whereOr('service_category_id', 10);
+                    })
+                    ->groupBy(DB::raw('YEAR(income_date)'))
+                    ->get();
+
+                return response()->json($routineIncome->count() > 0 ? $routineIncome[0]->toArray() : ['year' => $year, 'nominal' => 0]);
+
+        }
+        // 'income_routine'
+        // 'income_year'
+        // 'income_kid'
+        // 'income_youth'
     }
 }

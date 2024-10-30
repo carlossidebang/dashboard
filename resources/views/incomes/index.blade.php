@@ -11,32 +11,32 @@
                 <div class="col-lg-3 col-md-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <span class="fw-semibold d-block mb-1">Total Pemasukan (2024)</span>
-                            <h3 class="card-title mb-2">Rp. {{ number_format($income_year->nominal, 0, ',', '.') }}</h3>
+                            <span class="fw-semibold d-block mb-1">Total Pemasukan (<span class="current-year">{{$current_year}}</span>)</span>
+                            <h3 class="card-title mb-2">Rp. <span id="year">{{ number_format($income_year->nominal, 0, ',', '.') }}</span></h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <span class="fw-semibold d-block mb-1">Pemuda (2024)</span>
-                            <h3 class="card-title mb-2">Rp. {{ number_format($income_youth->nominal, 0, ',', '.') }}</h3>
+                            <span class="fw-semibold d-block mb-1">Pemuda (<span class="current-year">{{$current_year}}</span>)</span>
+                            <h3 class="card-title mb-2">Rp. <span id="youth">{{ number_format($income_youth->nominal, 0, ',', '.') }}</span></h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <span class="fw-semibold d-block mb-1">Sekolah Minggu (2024)</span>
-                            <h3 class="card-title mb-2">Rp {{ number_format($income_kid->nominal, 0, ',', '.') }}</h3>
+                            <span class="fw-semibold d-block mb-1">Sekolah Minggu (<span class="current-year">{{$current_year}}</span>)</span>
+                            <h3 class="card-title mb-2">Rp <span id="kid">{{ number_format($income_kid->nominal, 0, ',', '.') }}</span></h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <span class="fw-semibold d-block mb-1">Persembahan Minggu (2024)</span>
-                            <h3 class="card-title mb-2">Rp. {{ number_format($income_routine->nominal, 0, ',', '.') }}</h3>
+                            <span class="fw-semibold d-block mb-1">Persembahan Minggu (<span class="current-year">{{$current_year}}</span>)</span>
+                            <h3 class="card-title mb-2">Rp. <span id="routine">{{ number_format($income_routine->nominal, 0, ',', '.') }}</span></h3>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                             '2023' => '2023',
                             '2024' => '2024',
                         ],
-                        null,
+                        '2024',
                         [
                             'id' => 'year-selector',
                             'class' => 'form-control',
@@ -94,4 +94,5 @@
 
 @section('page-script')
     <script src="{{ asset('assets/js/dashboard-keuangan.js') }}"></script>
+    <script src="{{ asset('assets/js/dashboard-keuangan-box.js') }}"></script>
 @endsection

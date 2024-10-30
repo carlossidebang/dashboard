@@ -54,4 +54,5 @@ Route::prefix('api')->group(function () {
     Route::get('outcome', [OutcomeController::class, 'getOutcomeMonthlyReport']);
     Route::get('income-outcome', [HomeController::class, 'getIncomeOutcome']);
     Route::get('total-enter-out', [CongregationController::class, 'getTotalEnterOutCongregation']);
+    Route::get('income-year/{year}/{categories}', [IncomeController::class, 'getIncomeYearByCategories'])->name('income-year');
 });
