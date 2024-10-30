@@ -1,0 +1,14 @@
+{
+    "/assets/vendor/libs/apex-charts/apexcharts.js": "/assets/vendor/libs/apex-charts/apexcharts.js",
+    "/assets/vendor/libs/bootstrap-datepicker/datepicker.js": "/assets/vendor/libs/bootstrap-datepicker/datepicker.js",
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/assets/vendor/libs/apex-charts/apex-charts.css": "/assets/vendor/libs/apex-charts/apex-charts.css",
+    "/assets/js/config.js": "/assets/js/config.js",
+    "/assets/js/dashboard-jemaat-meninggal.js": "/assets/js/dashboard-jemaat-meninggal.js",
+    "/assets/js/dashboard-jemaat-pindah.js": "/assets/js/dashboard-jemaat-pindah.js",
+    "/assets/js/dashboard-jemaat.js": "/assets/js/dashboard-jemaat.js",
+    "/assets/js/dashboard-keuangan.js": "/assets/js/dashboard-keuangan.js",
+    "/assets/js/dashboard-pengeluaran.js": "/assets/js/dashboard-pengeluaran.js",
+    "/assets/js/dashboards-analytics.js": "/assets/js/dashboards-analytics.js"
+}
