@@ -25,11 +25,8 @@ class Congregation extends Model
     use HasFactory;
 
     public $table = 'congregations';
-    
 
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'name',
@@ -67,7 +64,7 @@ class Congregation extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|string|min:3|max:150',
+        'name' => 'required|string|min:3|max:150|unique:congregations,name',
         'place_of_birth' => 'required|string|min:3|max:50',
         'birthday_date' => 'required',
         'address' => 'required|string|min:10',
@@ -75,5 +72,4 @@ class Congregation extends Model
         'occupation' => 'required|string|min:3|max:50'
     ];
 
-    
 }
