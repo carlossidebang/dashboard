@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\AdultBaptism;
 use App\Repositories\BaseRepository;
+use DB;
 
 /**
  * Class AdultBaptismRepository
@@ -37,5 +38,14 @@ class AdultBaptismRepository extends BaseRepository
     public function model()
     {
         return AdultBaptism::class;
+    }
+
+    public function getUnbaptized()
+    {
+        return DB::table('congregations as c')
+            ->leftJoin('adult_baptisms as ab', 'c.name', '=', 'ab.name')
+            ->whereNull('ab.name')
+            ->select('c.name')
+            ->get();
     }
 }

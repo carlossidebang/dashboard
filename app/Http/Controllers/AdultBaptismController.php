@@ -39,7 +39,9 @@ class AdultBaptismController extends AppBaseController
      */
     public function create()
     {
-        return view('adult_baptisms.create');
+        $congregations = $this->adultBaptismRepository->getUnbaptized()->sortBy('name');
+        // dd($congregations);
+        return view('adult_baptisms.create', compact('congregations'));
     }
 
     /**
@@ -52,8 +54,8 @@ class AdultBaptismController extends AppBaseController
     public function store(CreateAdultBaptismRequest $request)
     {
         $input = $request->all();
-
-        $adultBaptism = $this->adultBaptismRepository->create($input);
+        // dd($input);
+        $this->adultBaptismRepository->create($input);
 
         Flash::success('Adult Baptism saved successfully.');
 
