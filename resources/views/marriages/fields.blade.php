@@ -1,13 +1,23 @@
 <!-- Husband Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('husband_name', 'Nama Suami:') !!}
-    {!! Form::text('husband_name', null, ['class' => 'form-control']) !!}
+    <select class="form-control" name="husband_name">
+        <option disabled selected>Pilih Nama Suami</option>
+        @foreach ($unmarriedMen as $suami)
+            <option value="{{$suami->name}}">{{$suami->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Wife Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('wife_name', 'Nama Istri:') !!}
-    {!! Form::text('wife_name', null, ['class' => 'form-control', 'minlength' => 3, 'maxlength' => 150]) !!}
+    <select class="form-control" name="wife_name">
+        <option disabled selected>Pilih Nama Istri</option>
+        @foreach ($unmarriedWomen as $istri)
+            <option value="{{$istri->name}}">{{$istri->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Marriage Date Field -->

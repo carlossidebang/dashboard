@@ -39,7 +39,10 @@ class MarriageController extends AppBaseController
      */
     public function create()
     {
-        return view('marriages.create');
+        $unmarriedMen = $this->marriageRepository->getUnmarried('pria')->sortBy('name');
+        $unmarriedWomen = $this->marriageRepository->getUnmarried('wanita')->sortBy('name');
+
+        return view('marriages.create', compact('unmarriedMen', 'unmarriedWomen'));
     }
 
     /**
