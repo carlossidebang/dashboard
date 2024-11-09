@@ -69,6 +69,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="progress" id="progress">
+                    <div class="progress-bar {{ $progress_color }}" role="progressbar" style="width: {{ $progress_current_year }}%;" aria-valuenow="{{ $progress_current_year }}" aria-valuemin="0" aria-valuemax="100">{{ $progress_current_year }}%</div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -95,4 +98,5 @@
 @section('page-script')
     <script src="{{ asset('assets/js/dashboard-keuangan.js') }}"></script>
     <script src="{{ asset('assets/js/dashboard-keuangan-box.js') }}"></script>
+    <script src="{{ asset('assets/js/dashboard-keuangan-progress.js') }}"></script>
 @endsection

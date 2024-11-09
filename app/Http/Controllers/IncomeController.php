@@ -63,12 +63,21 @@ class IncomeController extends AppBaseController
             ->groupBy(DB::raw('YEAR(income_date)'))
             ->get();
 
+        // progress bar
+        $total = intval($incomeOfYear[0]->nominal);
+        $percentage = ($total / 200000000) * 100;
+        $finalValue = min($percentage, 100);
+        $progressCurrentYear = number_format($finalValue, 1); // format belakang koma 1 angka
+        $progressColor = ($progressCurrentYear > 75 ? 'bg-success' : $progressCurrentYear < 25) ? 'bg-danger' : 'bg-warning';
+
         return $incomeDataTable->render('incomes.index', [
             'current_year' => $currentYear,
             'income_routine' => (sizeof($routineIncome) == 0) ?  $defaultResponse : $routineIncome[0],
             'income_year' => (sizeof($incomeOfYear) == 0) ?  $defaultResponse : $incomeOfYear[0],
             'income_kid' => (sizeof($incomeKid) == 0) ?  $defaultResponse : $incomeKid[0],
-            'income_youth' => (sizeof($incomeKid) == 0) ?  $defaultResponse : $incomeYouth[0],
+            'income_youth' => (sizeof($incomeYouth) == 0) ?  $defaultResponse : $incomeYouth[0],
+            'progress_current_year' => $progressCurrentYear,
+            'progress_color' => $progressColor
         ]);
     }
 
