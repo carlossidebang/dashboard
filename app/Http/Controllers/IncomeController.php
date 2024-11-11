@@ -46,6 +46,7 @@ class IncomeController extends AppBaseController
             })
             ->groupBy(DB::raw('YEAR(income_date)'))
             ->get();
+
         $incomeOfYear = Income::select(DB::raw('YEAR(income_date) as year'), DB::raw('SUM(nominal) as nominal'))
             ->where(DB::raw('YEAR(income_date)'), $currentYear)
             ->groupBy(DB::raw('YEAR(income_date)'))
@@ -64,7 +65,7 @@ class IncomeController extends AppBaseController
             ->get();
 
         // progress bar
-        $total = intval($incomeOfYear[0]->nominal);
+        $total = intval($incomeOfYear[0]->nominal ?? $defaultResponse->nominal);
         $percentage = ($total / 200000000) * 100;
         $finalValue = min($percentage, 100);
         $progressCurrentYear = number_format($finalValue, 1); // format belakang koma 1 angka
